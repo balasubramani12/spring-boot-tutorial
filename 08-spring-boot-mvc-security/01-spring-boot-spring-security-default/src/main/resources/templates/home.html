@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        <title>BSM Home Page</title>
+    </head>
+        <body>
+            <h3>BSM Company Home Page</h3>
+            <hr>
+            <p>Welcome to BSM Market</p>
+            <hr>
+            <!--Display Username & their role-->
+            <p>
+                User: <span sec:authentication="principal.username"></span>
+                <br><br>
+                Role(s): <span sec:authentication="principal.authorities"></span>
+            </p>
+            <hr>
+            
+            <!--Add a anchor for admin/manager-->
+            <div sec:authorize="hasRole('MANAGER')">
+                <a th:href="@{/leaders}">Leader Meeting</a>(Only for Managers)
+            </div>
+            <br>
+            <div sec:authorize="hasRole('ADMIN')">
+                <a th:href="@{/systems}">IT Services</a>(Only for Admin staff)
+            </div>
+            
+
+            <br>
+            <form action="#" th:action="@{/logout}" method="POST">
+                <input type="submit" value="Logout" class="btn btn-warning">
+            </form>
+        </body>
+</html>

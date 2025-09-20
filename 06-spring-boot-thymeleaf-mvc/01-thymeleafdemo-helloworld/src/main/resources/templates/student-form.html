@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration Form</title>
+</head>
+<body>
+    <h3>Student Registration Form</h3>
+
+    <!-- 
+        th:action should use @{} to reference a URL mapping, 
+        not ${} (which is for variables).
+    -->
+    <form th:action="@{/processStudentForm}" th:object="${student}" method="POST">
+        <!--Text-->
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" th:field="*{firstName}">
+        <br><br>
+
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" th:field="*{lastName}">
+        <br><br>
+        <!--Drop-Down Menu-->
+        <label for="country">Country</label>
+        <select th:field="*{country}">
+            <option th:each="i: ${countries}" th:value="${i}" th:text="${i}" />
+        </select>
+        <br><br>
+        <!--Radio Button-->
+        <label for="favoriteLanguage">Favorite Language</label>
+        <input type="radio" th:field="*{favoriteLanguage}" th:each="i: ${languages}" th:value="${i}" th:text="${i}"/>
+
+        <br><br>
+        <!--Check Boxes-->
+        <label for="favoriteSystems">Favorite Operating Systems</label>
+        <input type="checkbox" th:field="*{favoriteSystems}" th:each="i: ${systems}" th:value="${i}" th:text="${i}"/>
+
+        <br><br>
+        <input type="submit" value="Register">
+    </form>
+
+</body>
+</html>
